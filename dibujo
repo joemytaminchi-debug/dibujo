@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Joemy Taminchi · Dibujo para Ingeniería</title>
+<meta name="description" content="Proyectos semanales de Dibujo para Ingeniería – Ingeniería Mecatrónica, UTP.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0f1a;
+  --panel:#111a2b;
+  --panel-2:#16223a;
+  --line:#243452;
+  --ink:#e8edf7;
+  --muted:#93a1bd;
+  --accent:#f2b34c;
+  --off:#1a2234;
+  --off-ink:#5d6a84;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Chakra Petch",system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  min-height:100vh;
+  line-height:1.4;
+}
+
+/* ---------- Cabecera ---------- */
+header{
+  position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:1rem;
+  padding:.7rem clamp(1rem,4vw,3.5rem);
+  background:rgba(10,15,26,.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.logo{width:44px;height:44px;flex:none}
+header h1{font-size:clamp(1.1rem,3.2vw,2.2rem);font-weight:700;letter-spacing:.02em;text-transform:uppercase;flex:1}
+header .carrera{font-weight:600;color:var(--muted);font-size:1rem;display:none}
+header a.nav{color:var(--ink);text-underline-offset:4px;font-size:1.05rem}
+header a.nav:hover{color:var(--accent)}
+@media(min-width:760px){header .carrera{display:block}}
+
+/* ---------- Escena principal ---------- */
+.escena{
+  position:relative;
+  min-height:calc(100vh - 69px);
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:2rem;
+  padding:clamp(1.2rem,4vw,3.5rem);
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 20% 0%,rgba(78,120,200,.18),transparent 55%),
+    linear-gradient(180deg,#0d1424,#080c15);
+}
+/* cuadrícula de plano técnico */
+.escena::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(var(--line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:48px 48px;
+  opacity:.35;
+  mask-image:linear-gradient(180deg,#000 30%,transparent 100%);
+  -webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 100%);
+  pointer-events:none;
+}
+/* engranaje decorativo */
+.engranaje{
+  position:absolute;right:-120px;bottom:-140px;width:520px;height:520px;
+  opacity:.09;color:var(--accent);pointer-events:none;
+  animation:girar 90s linear infinite;
+}
+@keyframes girar{to{transform:rotate(360deg)}}
+.escena>*{position:relative}
+
+/* ---------- Tarjeta del estudiante ---------- */
+.ficha{
+  align-self:end;
+  background:rgba(17,26,43,.88);
+  border:1px solid var(--line);
+  border-left:4px solid var(--accent);
+  border-radius:10px;
+  padding:clamp(1.2rem,3vw,2.2rem);
+  max-width:620px;
+}
+.ficha h2{
+  font-size:clamp(2.2rem,6vw,4.6rem);
+  line-height:1;font-weight:700;margin-bottom:1.2rem;
+}
+.ficha dl{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;font-size:clamp(.95rem,1.6vw,1.1rem)}
+.ficha dt{color:var(--muted)}
+.ficha dd{font-weight:600}
+
+/* ---------- Semanas ---------- */
+.semanas{align-self:center}
+.semanas h2{font-size:clamp(2rem,5vw,4rem);font-weight:700;line-height:1.05}
+.semanas p.sub{color:var(--muted);margin:.5rem 0 1.6rem;font-size:1.05rem}
+.rejilla{
+  list-style:none;padding:0;
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:.7rem;max-width:620px;
+}
+.rejilla a,.rejilla span{
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+  min-height:56px;padding:.6rem 1rem;
+  border-radius:6px;
+  font-weight:600;font-size:1.05rem;
+  text-decoration:none;
+  border:1px solid var(--line);
+}
+.rejilla a{
+  background:var(--panel);color:var(--ink);
+  transition:background .15s,border-color .15s,transform .15s;
+}
+.rejilla a:hover{background:var(--panel-2);border-color:var(--accent);transform:translateY(-2px)}
+.rejilla a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.rejilla a svg{width:16px;height:16px;color:var(--accent);flex:none}
+.rejilla span{
+  background:var(--off);color:var(--off-ink);
+  border-style:dashed;cursor:not-allowed;
+}
+.rejilla span small{font-weight:400;font-size:.8rem}
+
+footer{
+  text-align:center;padding:1.4rem 1rem;color:var(--muted);
+  border-top:1px solid var(--line);font-size:.9rem;
+}
+
+@media(max-width:860px){
+  .escena{grid-template-columns:1fr}
+  .ficha{order:2;align-self:start}
+  .engranaje{width:360px;height:360px}
+}
+@media(prefers-reduced-motion:reduce){
+  .engranaje{animation:none}
+  .rejilla a{transition:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <svg class="logo" viewBox="0 0 48 48" fill="none" stroke="#f2b34c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="24" cy="24" r="7"/>
+    <path d="M24 5v6M24 37v6M5 24h6M37 24h6M10.6 10.6l4.2 4.2M33.2 33.2l4.2 4.2M37.4 10.6l-4.2 4.2M14.8 33.2l-4.2 4.2"/>
+  </svg>
+  <h1>Joemy Allison Taminchi Siesquen</h1>
+  <span class="carrera">Ingeniería Mecatrónica</span>
+  <a class="nav" href="#actividades">Actividades</a>
+</header>
+
+<main>
+  <section class="escena">
+    <svg class="engranaje" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true">
+      <path fill-rule="evenodd" d="M44 4h12l2 9a37 37 0 0 1 9 3.7l7.8-5 8.5 8.5-5 7.8A37 37 0 0 1 86 36l9 2v12l-9 2a37 37 0 0 1-3.7 9l5 7.8-8.5 8.5-7.8-5A37 37 0 0 1 58 87l-2 9H44l-2-9a37 37 0 0 1-9-3.7l-7.8 5-8.5-8.5 5-7.8A37 37 0 0 1 14 64l-9-2V50l9-2a37 37 0 0 1 3.7-9l-5-7.8 8.5-8.5 7.8 5A37 37 0 0 1 42 13zM50 32a18 18 0 1 0 0 36 18 18 0 0 0 0-36z"/>
+    </svg>
+
+    <article class="ficha">
+      <h2>Dibujo para Ingeniería</h2>
+      <dl>
+        <dt>Estudiante</dt><dd>Joemy Allison Taminchi Siesquen</dd>
+        <dt>Carrera</dt><dd>Ingeniería Mecatrónica</dd>
+        <dt>Profesor</dt><dd>Sandro Rivera Valle</dd>
+        <dt>Universidad</dt><dd>UTP</dd>
+        <dt>Ciclo</dt><dd>2026 – II</dd>
+      </dl>
+    </article>
+
+    <div class="semanas" id="actividades">
+      <h2>Proyectos Semanales</h2>
+      <p class="sub">Resumen de actividades y láminas de dibujo.</p>
+      <ul class="rejilla" id="rejilla"></ul>
+    </div>
+  </section>
+</main>
+
+<footer>Joemy Allison Taminchi Siesquen · Ingeniería Mecatrónica · UTP · 2026 – II</footer>
+
+<script>
+  // Semanas sin enlace (no se pueden abrir)
+  const bloqueadas = [8, 18];
+  const total = 18;
+  const icono = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>';
+  const lista = document.getElementById("rejilla");
+
+  for (let n = 1; n <= total; n++) {
+    const li = document.createElement("li");
+    if (bloqueadas.includes(n)) {
+      li.innerHTML = `<span aria-disabled="true" title="Aún no disponible">Semana ${n}</span>`;
+    } else {
+      // Los PDF van en la carpeta /pdfs con el nombre semana-1.pdf, semana-2.pdf, ...
+      li.innerHTML = `<a href="pdfs/semana-${n}.pdf" target="_blank" rel="noopener">${icono}Semana ${n}</a>`;
+    }
+    lista.appendChild(li);
+  }
+</script>
+</body>
+</html>
